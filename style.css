@@ -1,0 +1,226 @@
+:root {
+  --bg-light: #f9f9f9;
+  --bg-dark: #222;
+  --text-light: #222;
+  --text-dark: #eee;
+  --border-light: #ccc;
+  --border-dark: #555;
+  --highlight: #4caf50;
+  --shadow-color: rgba(0,0,0,0.15);
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: background-color 0.3s, color 0.3s;
+  user-select: none;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body.dark-theme {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+h1 {
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-shadow: 0 0 3px var(--shadow-color);
+}
+
+#controls {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.file-drop-zone {
+  border: 2px dashed #aaa;
+  padding: 10px 25px;
+  cursor: pointer;
+  border-radius: 12px;
+  color: #666;
+  font-weight: 500;
+  transition: border-color 0.3s, color 0.3s;
+  user-select: none;
+  position: relative;
+  background: #fff;
+  box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.file-drop-zone:hover {
+  border-color: var(--highlight);
+  color: var(--highlight);
+}
+
+.file-drop-zone input[type="file"] {
+  display: none;
+}
+
+button, select {
+  padding: 7px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 1.5px solid var(--border-light);
+  background: white;
+  font-weight: 600;
+  box-shadow: 0 2px 5px var(--shadow-color);
+  transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+button:hover:not(:disabled), select:hover {
+  background-color: var(--highlight);
+  color: white;
+  border-color: var(--highlight);
+}
+
+body.dark-theme button, body.dark-theme select {
+  background: #333;
+  border-color: var(--border-dark);
+  color: var(--text-dark);
+  box-shadow: none;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+#info {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  user-select: none;
+}
+
+#puzzleWrapper {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 900px;
+  width: 100%;
+}
+
+#piecesContainer, #boardContainer {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  padding: 15px;
+  box-sizing: border-box;
+  width: 420px;
+  min-height: 450px;
+  position: relative;
+  user-select: none;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+body.dark-theme #piecesContainer, body.dark-theme #boardContainer {
+  background: #2a2a2a;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.9);
+}
+
+#piecesContainer h2, #boardContainer h2 {
+  margin: 0 0 12px 0;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--text-light);
+  user-select: none;
+}
+
+body.dark-theme #piecesContainer h2, body.dark-theme #boardContainer h2 {
+  color: var(--text-dark);
+}
+
+/* Левое окно: хаотичный разброс */
+#piecesContainer {
+  position: relative;
+}
+
+/* Правая сетка */
+#boardContainer {
+  display: grid;
+  gap: 1px; /* уменьшен gap для плотного пазла */
+  justify-content: center;
+  align-content: center;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  border: 2px dashed #bbb;
+  border-radius: 12px;
+  background-color: transparent;
+  box-sizing: border-box;
+  transition: background-color 0.3s, border-color 0.3s;
+  position: relative;
+  user-select: none;
+}
+
+body.dark-theme .cell {
+  border-color: #555;
+}
+
+.cell.highlight {
+  background-color: #c8f7c5;
+  border-color: var(--highlight);
+}
+
+/* Кусочки */
+.piece {
+  position: absolute; /* для хаотичного разброса */
+  width: 100px;
+  height: 100px;
+  border-radius: 12px;
+  border: 2px solid #bbb;
+  box-sizing: border-box;
+  cursor: grab;
+  background-size: 400px 400px;
+  background-repeat: no-repeat;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  user-select: none;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.2s, left 0.3s ease, top 0.3s ease;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+.piece:active {
+  cursor: grabbing;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  transform: rotate(2deg);
+}
+
+.piece.correct {
+  border-color: var(--highlight);
+  box-shadow: 0 0 15px var(--highlight);
+  cursor: default;
+  position: relative !important;
+  left: 0 !important;
+  top: 0 !important;
+  margin: 0 !important;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.piece.shake {
+  animation: shake 0.5s;
+  border-color: #f44336 !important;
+  box-shadow: 0 0 10px #f44336 !important;
+}
