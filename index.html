@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Пазл с двумя окнами и проверкой позиций</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Собери пазл из своей картинки</h1>
+
+  <div id="controls">
+    <label class="file-drop-zone" id="dropZone">
+      Перетащите картинку сюда или <input type="file" id="imageInput" accept="image/*" />
+    </label>
+    <button id="toggleShadowBtn" disabled>Режим "Тень" 👤</button>
+    <select id="themeSelect" aria-label="Выбор темы">
+      <option value="light">Светлая тема</option>
+      <option value="dark">Темная тема</option>
+    </select>
+    <select id="sizeSelect" aria-label="Выбор размера пазла">
+      <option value="3">3 x 3</option>
+      <option value="4" selected>4 x 4</option>
+      <option value="5">5 x 5</option>
+      <option value="6">6 x 6</option>
+      <option value="7">7 x 7</option>
+      <option value="8">8 x 8</option>
+      <option value="9">9 x 9</option>
+      <option value="10">10 x 10</option>
+    </select>
+  </div>
+
+  <div id="info">
+    <span>Время: <span id="timer">00:00</span></span> |
+    <span>Ходы: <span id="moves">0</span></span>
+  </div>
+
+  <div id="puzzleWrapper">
+    <section id="piecesContainer" aria-label="Окно с кусочками пазла" role="region" tabindex="0">
+      <h2>Пазлы</h2>
+      <!-- Кусочки будут здесь -->
+    </section>
+    <section id="boardContainer" aria-label="Окно для сборки пазла" role="region" tabindex="0">
+      <h2>Собирание</h2>
+      <!-- Ячейки сетки -->
+    </section>
+  </div>
+
+  <audio id="snapSound" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
